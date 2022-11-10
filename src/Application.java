@@ -8,8 +8,8 @@ public class Application {
         Lanes lanes = new Lanes();
         Scanner sc = new Scanner(System.in);
         boolean appRunning = true;
-        while (appRunning) {
 
+        while (appRunning) {
 
             System.out.println("""
                     DumpaMera Menu.
@@ -95,6 +95,7 @@ public class Application {
                 System.out.println(lanes);
             } else if (choice == 3){
                 System.out.println("exit");
+                appRunning = false;
             } else {
                System.out.println("Invalid choice.");
             }
