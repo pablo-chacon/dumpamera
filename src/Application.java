@@ -1,104 +1,171 @@
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
 public class Application {
 
+    static String laneOfChoice;
+    static List<String> lanes;
+    static Lanes lane;
     public static void main(String[] args) {
-        Lanes lanes = new Lanes();
-        Scanner sc = new Scanner(System.in);
+
+
         boolean appRunning = true;
+        lanes = new ArrayList<>();
+
 
         while (appRunning) {
 
-            System.out.println("""
-                    DumpaMera Menu.
-                                   
-                        1. Register new vehicle.
-                        2. Docked trucks.
-                        3. Quit program.
-                        >>> """);
-
-
-            int choice = sc.nextInt();
+            mainMenu();
+            int choice = inputInt();
 
             if (choice == 1) {
 
-                System.out.println("""
-                        VehicleTypes:
-                        1. Van
-                        2. small truck
-                        3. heavy truck""");
-
                 Vehicle vehicle = new Vehicle();
-                int vehicleType = sc.nextInt();
-                if (vehicleType == 1) {
-                    vehicle.setVehicle("van");
-                    System.out.println("Input weight: > ");
-                    vehicle.setWeight(sc.nextInt());
 
-                    System.out.println("Available lanes: \n1. A\n2. B");
-                    int laneOfChoice = sc.nextInt();
-                    if (laneOfChoice == 1) {
+                vehicleMenu();
+
+                int vehicleType = inputInt();
+
+                if (vehicleType == 1) {
+
+                    vehicle.setVehicle("Van");
+                    System.out.println("Input weight: > ");
+                    vehicle.setWeight(inputInt());
+
+                    System.out.println("Available lanes: A/B.");
+                    laneOfChoice = inputStr().toLowerCase();
+
+                    if (laneOfChoice.contains("a")) {
+
                         vehicle.setLane("A");
-                    } else if (laneOfChoice == 2) {
+                        System.out.println("Proceed to lane A.");
+
+                    } else if (laneOfChoice.contains("b")) {
+
                         vehicle.setLane("B");
+                        System.out.println("Proceed to lane B.");
+
                     } else {
-                        System.out.println("Invalid choice, program crasching!");
+
+                        System.out.println("Invalid choice!");
+                        choice = 1;
+
                     }
-                            lanes.addLane("vehicle", "weight", "lane").print();
-                            lanes.addLane(vehicle.getVehicle(), String.valueOf(vehicle.getWeight()), vehicle.getLane())
-                            .print();
+
+                    lanes.add(vehicle.toString());
+                    System.out.println(vehicle);
+
 
                 } else if (vehicleType == 2) {
 
-                    vehicle.setVehicle("small truck");
+                    vehicle.setVehicle("Small truck");
                     System.out.println("Input weight: > ");
-                    vehicle.setWeight(sc.nextInt());
+                    vehicle.setWeight(inputInt());
 
                     if (vehicle.getWeight() < 5000) {
+
                         vehicle.setLane("A");
+                        System.out.println("Proceed to lane A.");
+
                     } else {
 
-                        System.out.println("Available lanes:\n1.C\n2.D");
-                        int laneOfChoice = sc.nextInt();
+                        System.out.println("Available lanes: C/D");
+                        laneOfChoice = inputStr().toLowerCase();
 
-                        if (laneOfChoice == 1) {
+
+                        if (laneOfChoice.contains("c")) {
+
                             vehicle.setLane("C");
-                        } else {
+                            System.out.println("Proceed to lane C.");
+
+                        } else if (laneOfChoice.contains("d")) {
+
                             vehicle.setLane("D");
-                            System.out.println("Invalid choice, program crasching!");
+                            System.out.println("Proceed to lane D.");
+
+                        } else {
+
+                            Application.main(null);
+
                         }
 
+                        lanes.add(vehicle.toString());
+
                     }
 
-                            lanes.addLane("vehicle", "weight", "lane").print();
-                            lanes.addLane(vehicle.getVehicle(), String.valueOf(vehicle.getWeight()), vehicle.getLane())
-                            .print();
                 } else if (vehicleType == 3) {
+
                     vehicle.setVehicle("Heavy truck");
                     System.out.println("Input weight: > ");
-                    vehicle.setWeight(sc.nextInt());
+                    vehicle.setWeight(inputInt());
 
                     if (vehicle.getWeight() < 9000) {
-                        vehicle.setLane("D");
-                    } else {
-                        vehicle.setLane("E");
-                    }
-                    new Lanes()
-                            .addLane("vehicle", "weight", "lane")
-                            .addLane(vehicle.getVehicle(), String.valueOf(vehicle.getWeight()), vehicle.getLane())
-                            .print();
-                }
 
+                        vehicle.setLane("D");
+                        System.out.println("Proceed to lane D.");
+
+                    } else if (vehicle.getWeight() > 9000) {
+
+                        vehicle.setLane("E");
+                        System.out.println("Proceed to lane E.");
+
+                    } else {
+
+                        System.out.println("Invalid input!");
+
+                    }
+                }
+                lanes.add(vehicle.toString());
             } else if (choice == 2) {
+
                 System.out.println(lanes);
-            } else if (choice == 3){
+
+            } else if (choice == 3) {
+
                 System.out.println("exit");
                 appRunning = false;
+
             } else {
-               System.out.println("Invalid choice.");
+
+                System.out.println("Invalid choice.");
+
             }
         }
     }
+
+    public static String inputStr() {
+        Scanner sc = new Scanner(System.in);
+        return String.valueOf(sc.nextLine());
+    }
+
+    public static int inputInt() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
+    }
+
+    public static void mainMenu() {
+        System.out.println("""
+            DumpaMera Menu.
+                           
+                1. Register new vehicle.
+                2. Docked trucks.
+                3. Quit program.
+                >>> """);
+
+    }
+
+    public static void vehicleMenu() {
+        System.out.println("""
+            VehicleTypes:
+            1. Van
+            2. small truck
+            3. heavy truck
+            >>>""");
+    }
+
+
+
 }

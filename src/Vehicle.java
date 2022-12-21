@@ -36,4 +36,9 @@ public class Vehicle {
     public void setLane(String lane) {
         this.lane = lane;
     }
+
+    public String toString(){
+        return  "Lane: " + getLane() + " Vehicle: " + getVehicle() + " Weight: " + getWeight();
+
+    }
 }
