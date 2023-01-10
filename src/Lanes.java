@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Lanes extends Vehicle {
+public class Lanes {
 
     List<Vehicle> lanes = Arrays.asList(new Vehicle());
 
